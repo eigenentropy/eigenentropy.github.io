@@ -9,12 +9,11 @@
 <style>
     * {
         box-sizing: border-box;
-        margin: 0;
-        padding: 0;
     }
 
     html,
     body {
+        margin: 0;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -27,264 +26,202 @@
         position: relative;
     }
 
-    /* =========================================================
+    /* =========================================
        BACKGROUND
-       ========================================================= */
+       ========================================= */
 
     .background {
         position: fixed;
         inset: 0;
-        background: #000;
         overflow: hidden;
+        pointer-events: none;
         z-index: 0;
+        background: #000;
     }
 
     /*
-       Rotating coordinate globe.
-       The PNG should sit in the same folder as index.html.
+       Globe image.
+
+       IMPORTANT:
+       Replace "globe.png" below with the exact
+       filename of your uploaded globe image if
+       it is different.
     */
-
-    .coordinate-globe {
+    .globe {
         position: absolute;
-        left: -8%;
-        bottom: -30%;
-        width: 78vw;
-        max-width: 1050px;
 
-        opacity: 0.16;
+        width: 850px;
+        height: 850px;
 
-        pointer-events: none;
-        user-select: none;
+        left: -90px;
+        bottom: -210px;
+
+        object-fit: contain;
+
+        opacity: 0.075;
+
+        filter:
+            grayscale(1)
+            brightness(1.8)
+            contrast(0.8);
 
         transform-origin: center center;
 
-        animation: globeMotion 90s ease-in-out infinite;
+        animation: globeRotate 90s linear infinite;
     }
 
-    .coordinate-globe img {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-
-    @keyframes globeMotion {
-        0% {
-            transform: rotate(-3deg);
+    @keyframes globeRotate {
+        from {
+            transform: rotate(0deg);
         }
 
-        50% {
-            transform: rotate(3deg);
-        }
-
-        100% {
-            transform: rotate(-3deg);
+        to {
+            transform: rotate(360deg);
         }
     }
 
 
-    /* =========================================================
-       SUBTLE ATMOSPHERE
-       ========================================================= */
+    /* =========================================
+       VERY SUBTLE SPATIAL LINES
+       ========================================= */
 
-    .ambient {
+    .ambient-line {
         position: absolute;
-        inset: 0;
+        height: 1px;
 
-        background:
-            radial-gradient(
-                ellipse at 50% 42%,
-                rgba(255,255,255,0.025) 0%,
-                rgba(255,255,255,0.008) 32%,
-                rgba(0,0,0,0) 65%
-            );
+        background: rgba(255,255,255,0.045);
 
-        pointer-events: none;
-        z-index: 1;
+        transform-origin: left center;
+    }
+
+    .line-one {
+        width: 100%;
+        top: 18%;
+        left: 0;
+        transform: rotate(4deg);
+    }
+
+    .line-two {
+        width: 100%;
+        top: 44%;
+        left: 0;
+        transform: rotate(-3deg);
+    }
+
+    .line-three {
+        width: 100%;
+        top: 72%;
+        left: 0;
+        transform: rotate(1deg);
     }
 
 
-    /* =========================================================
-       MAIN PAGE
-       ========================================================= */
+    /* =========================================
+       MAIN CONTENT
+       ========================================= */
 
     .page {
         position: relative;
         width: 100%;
-        height: 100%;
+        height: 100vh;
+
         z-index: 2;
     }
 
 
-    /* =========================================================
+    /* =========================================
        LOGO
-       ========================================================= */
+       ========================================= */
 
     .logo {
         position: absolute;
-        top: 14px;
+
+        top: 12px;
         left: 24px;
 
-        color: #fff;
+        z-index: 10;
 
-        z-index: 5;
-        user-select: none;
+        text-align: left;
     }
 
-    .logo-main {
+    .logo-ee {
         font-family: Georgia, "Times New Roman", serif;
-        font-style: italic;
-        font-weight: bold;
 
         font-size: 76px;
         line-height: 0.78;
-        letter-spacing: -5px;
+
+        font-weight: bold;
+        font-style: italic;
+
+        letter-spacing: -6px;
+
+        color: #fff;
     }
 
-    .logo-sub {
-        display: flex;
-        gap: 24px;
+    .logo-name {
+        margin-top: 8px;
 
-        margin-top: 5px;
-        margin-left: 23px;
+        display: flex;
+        gap: 27px;
+
+        padding-left: 27px;
 
         font-family: Georgia, "Times New Roman", serif;
-        font-style: italic;
-        font-weight: bold;
 
-        font-size: 16px;
-        line-height: 1;
+        font-size: 18px;
+        font-weight: bold;
+        font-style: italic;
+
+        color: #fff;
     }
 
 
-    /* =========================================================
-       CONTACT
-       ========================================================= */
+    /* =========================================
+       CONTACT BUTTON
+       ========================================= */
 
     .contact {
         position: absolute;
-        top: 23px;
-        right: 36px;
 
-        padding: 14px 29px;
+        top: 22px;
+        right: 24px;
 
-        border: 1px solid rgba(255,255,255,0.24);
-        border-radius: 30px;
+        padding: 15px 34px;
 
-        background: rgba(20,20,20,0.55);
+        border: 1px solid rgba(255,255,255,0.25);
+        border-radius: 40px;
+
+        background: rgba(0,0,0,0.35);
 
         color: #fff;
 
-        font-size: 16px;
+        font-size: 17px;
 
         backdrop-filter: blur(4px);
 
-        z-index: 5;
-
-        transition:
-            background 0.25s ease,
-            border-color 0.25s ease,
-            transform 0.25s ease;
-    }
-
-    .contact:hover {
-        background: rgba(255,255,255,0.08);
-        border-color: rgba(255,255,255,0.45);
-        transform: translateY(-1px);
+        z-index: 10;
     }
 
 
-    /* =========================================================
-       CENTRAL MESSAGE
-       ========================================================= */
+    /* =========================================
+       CONCEPT WORDS
+       ========================================= */
 
-    .hero {
+    .concept {
         position: absolute;
 
-        top: 30%;
-        left: 50%;
-
-        transform: translateX(-50%);
-
-        width: 90%;
-        text-align: center;
-
-        z-index: 4;
-    }
-
-    .hero h1 {
-        font-size: clamp(44px, 5vw, 74px);
-
-        font-weight: 400;
-        letter-spacing: -3px;
-
-        line-height: 1.05;
-
-        color: #f5f5f5;
-    }
-
-
-    /* =========================================================
-       COMING SOON
-       ========================================================= */
-
-    .coming-soon {
-        position: absolute;
-
-        top: 46%;
-        left: 50%;
-
-        transform: translate(-50%, -50%);
-
-        min-width: 350px;
-
-        padding: 30px 50px;
-
-        border-radius: 15px;
-
-        border: 1px solid rgba(255,255,255,0.22);
-
-        background:
-            linear-gradient(
-                145deg,
-                rgba(55,55,55,0.65),
-                rgba(12,12,12,0.78)
-            );
-
-        box-shadow:
-            0 12px 35px rgba(0,0,0,0.65),
-            inset 0 1px 0 rgba(255,255,255,0.06);
-
-        color: #f4f4f4;
-
-        text-align: center;
-
-        font-size: 35px;
-        font-weight: 400;
-
-        z-index: 4;
-    }
-
-
-    /* =========================================================
-       FIELD LABELS
-       ========================================================= */
-
-    .label {
-        position: absolute;
+        font-size: 14px;
 
         color: rgba(255,255,255,0.9);
 
-        font-size: 13px;
-        font-weight: 400;
-
-        z-index: 4;
+        z-index: 5;
 
         white-space: nowrap;
     }
 
     .private {
         top: 17%;
-        left: 43%;
+        left: 44%;
     }
 
     .secure {
@@ -298,113 +235,127 @@
     }
 
     .axis {
-        top: 59%;
+        top: 61%;
         right: 15%;
     }
 
     .redesign {
-        bottom: 17%;
+        bottom: 15%;
         left: 3%;
     }
 
     .optimize {
-        bottom: 9%;
+        bottom: 7%;
         left: 47%;
     }
 
 
-    /* =========================================================
-       RESPONSIVE
-       ========================================================= */
+    /* =========================================
+       HERO
+       ========================================= */
 
-    @media (max-width: 900px) {
+    .hero {
+        position: absolute;
 
-        .logo {
-            left: 18px;
-            top: 12px;
-        }
+        top: 28%;
+        left: 50%;
 
-        .logo-main {
-            font-size: 58px;
-        }
+        transform: translateX(-50%);
 
-        .logo-sub {
-            font-size: 13px;
-            gap: 18px;
-            margin-left: 18px;
-        }
+        width: 100%;
 
-        .contact {
-            right: 18px;
-            top: 18px;
+        text-align: center;
 
-            padding: 11px 20px;
+        z-index: 6;
+    }
 
-            font-size: 14px;
-        }
+    .hero h1 {
+        margin: 0;
 
-        .hero {
-            top: 31%;
-        }
+        font-size: clamp(48px, 5.2vw, 78px);
 
-        .hero h1 {
-            font-size: clamp(38px, 7vw, 58px);
-            letter-spacing: -2px;
-        }
+        line-height: 1.05;
 
-        .coming-soon {
-            min-width: 290px;
-            padding: 24px 35px;
-            font-size: 28px;
-        }
+        font-weight: 400;
 
-        .coordinate-globe {
-            left: -20%;
-            bottom: -10%;
-            width: 105vw;
-        }
+        letter-spacing: -3px;
 
-        .private {
-            top: 18%;
-            left: 40%;
-        }
-
-        .secure {
-            top: 26%;
-            right: 9%;
-        }
-
-        .vector {
-            left: 10%;
-            top: 36%;
-        }
-
-        .axis {
-            right: 8%;
-            top: 61%;
-        }
-
-        .optimize {
-            left: 44%;
-        }
+        color: #f4f4f4;
     }
 
 
-    @media (max-width: 600px) {
+    /* =========================================
+       COMING SOON BUTTON
+       ========================================= */
 
-        .logo-main {
-            font-size: 46px;
+    .coming-soon {
+        display: flex;
+
+        align-items: center;
+        justify-content: center;
+
+        width: 390px;
+        height: 104px;
+
+        margin: 28px auto 0;
+
+        border-radius: 17px;
+
+        border: 1px solid rgba(255,255,255,0.25);
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(45,45,45,0.95),
+                rgba(13,13,13,0.95)
+            );
+
+        box-shadow:
+            0 20px 50px rgba(0,0,0,0.65),
+            inset 0 1px 1px rgba(255,255,255,0.08);
+
+        color: #fff;
+
+        font-size: 34px;
+
+        font-weight: 400;
+
+        backdrop-filter: blur(6px);
+    }
+
+
+    /* =========================================
+       RESPONSIVE
+       ========================================= */
+
+    @media (max-width: 900px) {
+
+        .globe {
+            width: 650px;
+            height: 650px;
+
+            left: -180px;
+            bottom: -120px;
+
+            opacity: 0.06;
         }
 
-        .logo-sub {
-            font-size: 11px;
-            gap: 14px;
-            margin-left: 14px;
+        .logo-ee {
+            font-size: 60px;
+        }
+
+        .logo-name {
+            font-size: 15px;
+            gap: 20px;
         }
 
         .contact {
-            padding: 9px 15px;
-            font-size: 12px;
+            top: 18px;
+            right: 18px;
+
+            padding: 12px 22px;
+
+            font-size: 14px;
         }
 
         .hero {
@@ -412,42 +363,113 @@
         }
 
         .hero h1 {
-            font-size: 38px;
+            font-size: 44px;
+            letter-spacing: -2px;
+        }
+
+        .coming-soon {
+            width: 300px;
+            height: 82px;
+
+            font-size: 27px;
+        }
+
+        .vector {
+            left: 10%;
+        }
+
+        .secure {
+            right: 10%;
+        }
+
+        .axis {
+            right: 10%;
+        }
+    }
+
+
+    @media (max-width: 600px) {
+
+        .logo {
+            left: 15px;
+            top: 12px;
+        }
+
+        .logo-ee {
+            font-size: 48px;
+        }
+
+        .logo-name {
+            padding-left: 18px;
+            gap: 16px;
+            font-size: 12px;
+        }
+
+        .contact {
+            right: 12px;
+            top: 15px;
+
+            padding: 10px 17px;
+
+            font-size: 12px;
+        }
+
+        .hero {
+            top: 33%;
+        }
+
+        .hero h1 {
+            font-size: 36px;
             letter-spacing: -1.5px;
         }
 
         .coming-soon {
-            top: 47%;
-            min-width: 240px;
-            padding: 20px 25px;
-            font-size: 22px;
+            width: 260px;
+            height: 70px;
+
+            margin-top: 22px;
+
+            font-size: 23px;
         }
 
-        .label {
+        .concept {
             font-size: 11px;
         }
 
+        .private {
+            top: 20%;
+        }
+
         .vector {
+            top: 37%;
             left: 7%;
         }
 
         .secure {
-            right: 6%;
+            top: 27%;
+            right: 7%;
         }
 
         .axis {
-            right: 6%;
+            right: 7%;
         }
 
         .redesign {
             left: 4%;
         }
 
-        .coordinate-globe {
-            left: -35%;
-            bottom: -3%;
-            width: 125vw;
-            opacity: 0.13;
+        .optimize {
+            left: 44%;
+        }
+
+        .globe {
+            width: 500px;
+            height: 500px;
+
+            left: -150px;
+            bottom: -80px;
+
+            opacity: 0.055;
         }
     }
 
@@ -457,100 +479,107 @@
 
 <body>
 
-    <!-- =====================================================
-         BACKGROUND
-         ===================================================== -->
+<!-- =========================================
+     BACKGROUND
+     ========================================== -->
 
-    <div class="background">
+<div class="background">
 
-        <div class="coordinate-globe">
-            <img
-                src="eigen-entropy-coordinate-globe.png"
-                alt=""
-            >
+    <!-- Globe -->
+    <img
+        class="globe"
+        src="globe.png"
+        alt=""
+    >
+
+    <!-- Very subtle spatial lines -->
+    <div class="ambient-line line-one"></div>
+    <div class="ambient-line line-two"></div>
+    <div class="ambient-line line-three"></div>
+
+</div>
+
+
+<!-- =========================================
+     PAGE
+     ========================================== -->
+
+<div class="page">
+
+
+    <!-- =====================================
+         LOGO
+         ====================================== -->
+
+    <div class="logo">
+
+        <div class="logo-ee">
+            EE
+        </div>
+
+        <div class="logo-name">
+            <span>Eigen</span>
+            <span>Entropy</span>
         </div>
 
     </div>
 
-    <div class="ambient"></div>
+
+    <!-- =====================================
+         CONTACT
+         ====================================== -->
+
+    <div class="contact">
+        Contact Us
+    </div>
 
 
-    <!-- =====================================================
-         PAGE
-         ===================================================== -->
+    <!-- =====================================
+         CONCEPT WORDS
+         ====================================== -->
 
-    <main class="page">
+    <div class="concept private">
+        Private
+    </div>
 
+    <div class="concept secure">
+        Secure
+    </div>
 
-        <!-- LOGO -->
+    <div class="concept vector">
+        Vector
+    </div>
 
-        <div class="logo">
+    <div class="concept axis">
+        Axis
+    </div>
 
-            <div class="logo-main">
-                EE
-            </div>
+    <div class="concept redesign">
+        Re-design
+    </div>
 
-            <div class="logo-sub">
-                <span>Eigen</span>
-                <span>Entropy</span>
-            </div>
-
-        </div>
-
-
-        <!-- CONTACT -->
-
-        <div class="contact">
-            Contact Us
-        </div>
-
-
-        <!-- FIELD LABELS -->
-
-        <div class="label private">
-            Private
-        </div>
-
-        <div class="label secure">
-            Secure
-        </div>
-
-        <div class="label vector">
-            Vector
-        </div>
-
-        <div class="label axis">
-            Axis
-        </div>
-
-        <div class="label redesign">
-            Re-design
-        </div>
-
-        <div class="label optimize">
-            Optimize
-        </div>
+    <div class="concept optimize">
+        Optimize
+    </div>
 
 
-        <!-- HERO -->
+    <!-- =====================================
+         HERO
+         ====================================== -->
 
-        <section class="hero">
+    <main class="hero">
 
-            <h1>
-                Decisions with Confidence
-            </h1>
-
-        </section>
-
-
-        <!-- COMING SOON -->
+        <h1>
+            Decisions with Confidence
+        </h1>
 
         <div class="coming-soon">
             Coming Soon...
         </div>
 
-
     </main>
+
+</div>
 
 </body>
 </html>
