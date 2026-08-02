@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>EE: Eigen Entropy</title>
+<title>Eigen Entropy</title>
 
 <style>
     * {
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
     }
 
     html,
     body {
-        margin: 0;
         width: 100%;
         height: 100%;
         overflow: hidden;
@@ -26,149 +27,50 @@
         position: relative;
     }
 
-    /* =========================================
-       BACKGROUND
-       ========================================= */
 
-    .background {
-        position: fixed;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
-        z-index: 0;
-        background: #000;
-    }
-
-    /*
-       Globe image.
-
-       IMPORTANT:
-       Replace "globe.png" below with the exact
-       filename of your uploaded globe image if
-       it is different.
-    */
-    .globe {
-        position: absolute;
-
-        width: 850px;
-        height: 850px;
-
-        left: -90px;
-        bottom: -210px;
-
-        object-fit: contain;
-
-        opacity: 0.15;
-
-        filter:
-            grayscale(1)
-            brightness(1.8)
-            contrast(0.8);
-
-        transform-origin: center center;
-
-        animation: globeRotate 90s linear infinite;
-    }
-
-    @keyframes globeRotate {
-        from {
-            transform: rotate(0deg);
-        }
-
-        to {
-            transform: rotate(360deg);
-        }
-    }
-
-
-    /* =========================================
-       VERY SUBTLE SPATIAL LINES
-       ========================================= */
-
-    .ambient-line {
-        position: absolute;
-        height: 1px;
-
-        background: rgba(255,255,255,0.045);
-
-        transform-origin: left center;
-    }
-
-    .line-one {
-        width: 100%;
-        top: 18%;
-        left: 0;
-        transform: rotate(4deg);
-    }
-
-    .line-two {
-        width: 100%;
-        top: 44%;
-        left: 0;
-        transform: rotate(-3deg);
-    }
-
-    .line-three {
-        width: 100%;
-        top: 72%;
-        left: 0;
-        transform: rotate(1deg);
-    }
-
-
-    /* =========================================
-       MAIN CONTENT
-       ========================================= */
+    /* =====================================================
+       PAGE
+       ===================================================== */
 
     .page {
         position: relative;
         width: 100%;
         height: 100vh;
-
-        z-index: 2;
+        overflow: hidden;
+        background: #000;
     }
 
 
-    /* =========================================
+    /* =====================================================
        LOGO
-       ========================================= */
+       ===================================================== */
 
     .logo {
         position: absolute;
-
-        top: 12px;
+        top: 14px;
         left: 24px;
-
         z-index: 10;
-
-        text-align: left;
     }
 
     .logo-ee {
         font-family: Georgia, "Times New Roman", serif;
-
         font-size: 76px;
         line-height: 0.78;
-
         font-weight: bold;
         font-style: italic;
-
         letter-spacing: -6px;
-
         color: #fff;
     }
 
     .logo-name {
-        margin-top: 8px;
-
         display: flex;
         gap: 27px;
 
+        margin-top: 8px;
         padding-left: 27px;
 
         font-family: Georgia, "Times New Roman", serif;
-
-        font-size: 18px;
+        font-size: 17px;
         font-weight: bold;
         font-style: italic;
 
@@ -176,93 +78,44 @@
     }
 
 
-    /* =========================================
-       CONTACT BUTTON
-       ========================================= */
+    /* =====================================================
+       CONTACT
+       ===================================================== */
 
     .contact {
         position: absolute;
-
         top: 22px;
-        right: 24px;
+        right: 28px;
 
-        padding: 15px 34px;
+        padding: 14px 31px;
 
         border: 1px solid rgba(255,255,255,0.25);
         border-radius: 40px;
 
-        background: rgba(0,0,0,0.35);
+        background: rgba(255,255,255,0.025);
 
         color: #fff;
 
-        font-size: 17px;
-
-        backdrop-filter: blur(4px);
+        font-size: 16px;
+        font-weight: 400;
 
         z-index: 10;
     }
 
 
-    /* =========================================
-       CONCEPT WORDS
-       ========================================= */
-
-    .concept {
-        position: absolute;
-
-        font-size: 14px;
-
-        color: rgba(255,255,255,0.9);
-
-        z-index: 5;
-
-        white-space: nowrap;
-    }
-
-    .private {
-        top: 17%;
-        left: 44%;
-    }
-
-    .secure {
-        top: 25%;
-        right: 17%;
-    }
-
-    .vector {
-        top: 35%;
-        left: 15%;
-    }
-
-    .axis {
-        top: 61%;
-        right: 15%;
-    }
-
-    .redesign {
-        bottom: 15%;
-        left: 3%;
-    }
-
-    .optimize {
-        bottom: 7%;
-        left: 47%;
-    }
-
-
-    /* =========================================
+    /* =====================================================
        HERO
-       ========================================= */
+       ===================================================== */
 
     .hero {
         position: absolute;
 
-        top: 28%;
+        top: 29%;
         left: 50%;
 
-        transform: translateX(-50%);
-
         width: 100%;
+
+        transform: translateX(-50%);
 
         text-align: center;
 
@@ -272,25 +125,22 @@
     .hero h1 {
         margin: 0;
 
-        font-size: clamp(48px, 5.2vw, 78px);
+        color: #f5f5f5;
 
-        line-height: 1.05;
-
+        font-size: clamp(48px, 5vw, 74px);
         font-weight: 400;
 
         letter-spacing: -3px;
-
-        color: #f4f4f4;
+        line-height: 1.05;
     }
 
 
-    /* =========================================
-       COMING SOON BUTTON
-       ========================================= */
+    /* =====================================================
+       COMING SOON
+       ===================================================== */
 
     .coming-soon {
         display: flex;
-
         align-items: center;
         justify-content: center;
 
@@ -299,45 +149,290 @@
 
         margin: 28px auto 0;
 
+        border: 1px solid rgba(255,255,255,0.24);
         border-radius: 17px;
-
-        border: 1px solid rgba(255,255,255,0.25);
 
         background:
             linear-gradient(
                 145deg,
-                rgba(45,45,45,0.95),
+                rgba(48,48,48,0.9),
                 rgba(13,13,13,0.95)
             );
 
         box-shadow:
-            0 20px 50px rgba(0,0,0,0.65),
-            inset 0 1px 1px rgba(255,255,255,0.08);
+            0 18px 45px rgba(0,0,0,0.55),
+            inset 0 1px 0 rgba(255,255,255,0.07);
 
         color: #fff;
 
         font-size: 34px;
-
         font-weight: 400;
-
-        backdrop-filter: blur(6px);
     }
 
 
-    /* =========================================
-       RESPONSIVE
-       ========================================= */
+    /* =====================================================
+       FLOATING CONCEPT WORDS
+       ===================================================== */
+
+    .concept {
+        position: absolute;
+
+        color: rgba(255,255,255,0.88);
+
+        font-size: 14px;
+        font-weight: 400;
+
+        white-space: nowrap;
+
+        z-index: 5;
+
+        will-change: transform;
+    }
+
+
+    /* -----------------------------------------------------
+       PRIVATE
+       ----------------------------------------------------- */
+
+    .private {
+        left: 42%;
+        top: 17%;
+
+        animation:
+            privateFloat
+            18s
+            ease-in-out
+            infinite;
+    }
+
+    @keyframes privateFloat {
+
+        0% {
+            transform: translate(0px, 0px);
+        }
+
+        25% {
+            transform: translate(35px, 18px);
+        }
+
+        50% {
+            transform: translate(12px, 42px);
+        }
+
+        75% {
+            transform: translate(-28px, 20px);
+        }
+
+        100% {
+            transform: translate(0px, 0px);
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       SECURE
+       ----------------------------------------------------- */
+
+    .secure {
+        right: 17%;
+        top: 25%;
+
+        animation:
+            secureFloat
+            21s
+            ease-in-out
+            infinite;
+    }
+
+    @keyframes secureFloat {
+
+        0% {
+            transform: translate(0px, 0px);
+        }
+
+        25% {
+            transform: translate(-28px, 26px);
+        }
+
+        50% {
+            transform: translate(-55px, 5px);
+        }
+
+        75% {
+            transform: translate(-20px, -22px);
+        }
+
+        100% {
+            transform: translate(0px, 0px);
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       VECTOR
+       ----------------------------------------------------- */
+
+    .vector {
+        left: 15%;
+        top: 36%;
+
+        animation:
+            vectorFloat
+            24s
+            ease-in-out
+            infinite;
+    }
+
+    @keyframes vectorFloat {
+
+        0% {
+            transform: translate(0px, 0px);
+        }
+
+        25% {
+            transform: translate(28px, -25px);
+        }
+
+        50% {
+            transform: translate(62px, 10px);
+        }
+
+        75% {
+            transform: translate(30px, 35px);
+        }
+
+        100% {
+            transform: translate(0px, 0px);
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       AXIS
+       ----------------------------------------------------- */
+
+    .axis {
+        right: 14%;
+        top: 59%;
+
+        animation:
+            axisFloat
+            20s
+            ease-in-out
+            infinite;
+    }
+
+    @keyframes axisFloat {
+
+        0% {
+            transform: translate(0px, 0px);
+        }
+
+        25% {
+            transform: translate(-35px, -18px);
+        }
+
+        50% {
+            transform: translate(-8px, -45px);
+        }
+
+        75% {
+            transform: translate(28px, -20px);
+        }
+
+        100% {
+            transform: translate(0px, 0px);
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       RE-DESIGN
+       ----------------------------------------------------- */
+
+    .redesign {
+        left: 4%;
+        bottom: 16%;
+
+        animation:
+            redesignFloat
+            23s
+            ease-in-out
+            infinite;
+    }
+
+    @keyframes redesignFloat {
+
+        0% {
+            transform: translate(0px, 0px);
+        }
+
+        25% {
+            transform: translate(40px, -15px);
+        }
+
+        50% {
+            transform: translate(70px, 8px);
+        }
+
+        75% {
+            transform: translate(35px, 30px);
+        }
+
+        100% {
+            transform: translate(0px, 0px);
+        }
+    }
+
+
+    /* -----------------------------------------------------
+       OPTIMIZE
+       ----------------------------------------------------- */
+
+    .optimize {
+        left: 47%;
+        bottom: 8%;
+
+        animation:
+            optimizeFloat
+            19s
+            ease-in-out
+            infinite;
+    }
+
+    @keyframes optimizeFloat {
+
+        0% {
+            transform: translate(0px, 0px);
+        }
+
+        25% {
+            transform: translate(-30px, -25px);
+        }
+
+        50% {
+            transform: translate(15px, -48px);
+        }
+
+        75% {
+            transform: translate(45px, -20px);
+        }
+
+        100% {
+            transform: translate(0px, 0px);
+        }
+    }
+
+
+    /* =====================================================
+       MOBILE
+       ===================================================== */
 
     @media (max-width: 900px) {
 
-        .globe {
-            width: 650px;
-            height: 650px;
-
-            left: -180px;
-            bottom: -120px;
-
-            opacity: 0.06;
+        .logo {
+            left: 18px;
+            top: 12px;
         }
 
         .logo-ee {
@@ -345,16 +440,15 @@
         }
 
         .logo-name {
-            font-size: 15px;
+            font-size: 14px;
             gap: 20px;
+            padding-left: 20px;
         }
 
         .contact {
             top: 18px;
             right: 18px;
-
-            padding: 12px 22px;
-
+            padding: 11px 21px;
             font-size: 14px;
         }
 
@@ -370,8 +464,11 @@
         .coming-soon {
             width: 300px;
             height: 82px;
-
             font-size: 27px;
+        }
+
+        .concept {
+            font-size: 12px;
         }
 
         .vector {
@@ -379,11 +476,11 @@
         }
 
         .secure {
-            right: 10%;
+            right: 9%;
         }
 
         .axis {
-            right: 10%;
+            right: 9%;
         }
     }
 
@@ -400,22 +497,20 @@
         }
 
         .logo-name {
-            padding-left: 18px;
-            gap: 16px;
-            font-size: 12px;
+            font-size: 11px;
+            gap: 15px;
+            padding-left: 17px;
         }
 
         .contact {
-            right: 12px;
             top: 15px;
-
-            padding: 10px 17px;
-
+            right: 12px;
+            padding: 9px 16px;
             font-size: 12px;
         }
 
         .hero {
-            top: 33%;
+            top: 32%;
         }
 
         .hero h1 {
@@ -426,9 +521,7 @@
         .coming-soon {
             width: 260px;
             height: 70px;
-
             margin-top: 22px;
-
             font-size: 23px;
         }
 
@@ -437,39 +530,33 @@
         }
 
         .private {
+            left: 40%;
             top: 20%;
         }
 
-        .vector {
-            top: 37%;
-            left: 7%;
+        .secure {
+            right: 7%;
+            top: 27%;
         }
 
-        .secure {
-            top: 27%;
-            right: 7%;
+        .vector {
+            left: 7%;
+            top: 38%;
         }
 
         .axis {
             right: 7%;
+            top: 62%;
         }
 
         .redesign {
             left: 4%;
+            bottom: 17%;
         }
 
         .optimize {
-            left: 44%;
-        }
-
-        .globe {
-            width: 500px;
-            height: 500px;
-
-            left: -150px;
-            bottom: -80px;
-
-            opacity: 0.055;
+            left: 43%;
+            bottom: 8%;
         }
     }
 
@@ -479,37 +566,12 @@
 
 <body>
 
-<!-- =========================================
-     BACKGROUND
-     ========================================== -->
-
-<div class="background">
-
-    <!-- Globe -->
-    <img
-        class="globe"
-        src="globe.png"
-        alt=""
-    >
-
-    <!-- Very subtle spatial lines -->
-    <div class="ambient-line line-one"></div>
-    <div class="ambient-line line-two"></div>
-    <div class="ambient-line line-three"></div>
-
-</div>
-
-
-<!-- =========================================
-     PAGE
-     ========================================== -->
-
 <div class="page">
 
 
-    <!-- =====================================
+    <!-- =================================================
          LOGO
-         ====================================== -->
+         ================================================= -->
 
     <div class="logo">
 
@@ -518,24 +580,25 @@
         </div>
 
         <div class="logo-name">
-            <span>Eigen Entropy</span>
+            <span>Eigen</span>
+            <span>Entropy</span>
         </div>
 
     </div>
 
 
-    <!-- =====================================
+    <!-- =================================================
          CONTACT
-         ====================================== -->
+         ================================================= -->
 
     <div class="contact">
         Contact Us
     </div>
 
 
-    <!-- =====================================
-         CONCEPT WORDS
-         ====================================== -->
+    <!-- =================================================
+         FLOATING WORDS
+         ================================================= -->
 
     <div class="concept private">
         Private
@@ -562,9 +625,9 @@
     </div>
 
 
-    <!-- =====================================
+    <!-- =================================================
          HERO
-         ====================================== -->
+         ================================================= -->
 
     <main class="hero">
 
@@ -577,6 +640,7 @@
         </div>
 
     </main>
+
 
 </div>
 
