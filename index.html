@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Eigen Entropy — Decisions with Confidence</title>
+<title>Eigen Entropy</title>
 
 <style>
     * {
@@ -19,7 +19,7 @@
         height: 100%;
         overflow: hidden;
         background: #000;
-        color: #f5f5f5;
+        color: #fff;
         font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -28,57 +28,92 @@
     }
 
     /* =========================================================
-       COORDINATE FIELD
+       BACKGROUND
        ========================================================= */
 
-    .coordinate-field {
+    .background {
         position: fixed;
         inset: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
+        background: #000;
+        overflow: hidden;
         z-index: 0;
     }
 
-    .coordinate-field svg {
-        width: 100%;
-        height: 100%;
+    /*
+       Rotating coordinate globe.
+       The PNG should sit in the same folder as index.html.
+    */
+
+    .coordinate-globe {
+        position: absolute;
+        left: -8%;
+        bottom: -30%;
+        width: 78vw;
+        max-width: 1050px;
+
+        opacity: 0.16;
+
+        pointer-events: none;
+        user-select: none;
+
+        transform-origin: center center;
+
+        animation: globeMotion 90s ease-in-out infinite;
+    }
+
+    .coordinate-globe img {
         display: block;
+        width: 100%;
+        height: auto;
     }
 
-    .field-line {
-        fill: none;
-        stroke: rgba(220, 220, 220, 0.085);
-        stroke-width: 1;
+    @keyframes globeMotion {
+        0% {
+            transform: rotate(-3deg);
+        }
+
+        50% {
+            transform: rotate(3deg);
+        }
+
+        100% {
+            transform: rotate(-3deg);
+        }
     }
 
-    .field-line-light {
-        fill: none;
-        stroke: rgba(235, 235, 235, 0.11);
-        stroke-width: 1;
-    }
-
-    .axis-line {
-        fill: none;
-        stroke: rgba(235, 235, 235, 0.16);
-        stroke-width: 1.2;
-    }
-
-    .origin {
-        fill: rgba(245, 245, 245, 0.35);
-    }
 
     /* =========================================================
-       PAGE CONTENT
+       SUBTLE ATMOSPHERE
+       ========================================================= */
+
+    .ambient {
+        position: absolute;
+        inset: 0;
+
+        background:
+            radial-gradient(
+                ellipse at 50% 42%,
+                rgba(255,255,255,0.025) 0%,
+                rgba(255,255,255,0.008) 32%,
+                rgba(0,0,0,0) 65%
+            );
+
+        pointer-events: none;
+        z-index: 1;
+    }
+
+
+    /* =========================================================
+       MAIN PAGE
        ========================================================= */
 
     .page {
         position: relative;
         width: 100%;
-        height: 100vh;
-        min-height: 600px;
+        height: 100%;
         z-index: 2;
     }
+
 
     /* =========================================================
        LOGO
@@ -86,33 +121,40 @@
 
     .logo {
         position: absolute;
-        top: 8px;
-        left: 22px;
+        top: 14px;
+        left: 24px;
+
+        color: #fff;
+
         z-index: 5;
-        text-align: left;
+        user-select: none;
     }
 
-    .logo-ee {
+    .logo-main {
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 78px;
+        font-style: italic;
+        font-weight: bold;
+
+        font-size: 76px;
         line-height: 0.78;
-        font-weight: bold;
-        font-style: italic;
-        letter-spacing: -7px;
-        color: #ffffff;
+        letter-spacing: -5px;
     }
 
-    .logo-name {
-        margin-top: 4px;
-        margin-left: 26px;
+    .logo-sub {
+        display: flex;
+        gap: 24px;
+
+        margin-top: 5px;
+        margin-left: 23px;
+
         font-family: Georgia, "Times New Roman", serif;
-        font-size: 15px;
-        font-weight: bold;
         font-style: italic;
-        letter-spacing: 1px;
-        color: #ffffff;
-        word-spacing: 10px;
+        font-weight: bold;
+
+        font-size: 16px;
+        line-height: 1;
     }
+
 
     /* =========================================================
        CONTACT
@@ -121,36 +163,123 @@
     .contact {
         position: absolute;
         top: 23px;
-        right: 38px;
-        z-index: 5;
+        right: 36px;
 
-        padding: 16px 30px;
+        padding: 14px 29px;
 
-        border: 1px solid rgba(255,255,255,0.22);
+        border: 1px solid rgba(255,255,255,0.24);
         border-radius: 30px;
 
-        background: rgba(15,15,15,0.72);
-        color: #f2f2f2;
+        background: rgba(20,20,20,0.55);
+
+        color: #fff;
 
         font-size: 16px;
-        font-weight: 400;
 
-        box-shadow:
-            0 0 20px rgba(255,255,255,0.035),
-            inset 0 0 15px rgba(255,255,255,0.02);
+        backdrop-filter: blur(4px);
+
+        z-index: 5;
+
+        transition:
+            background 0.25s ease,
+            border-color 0.25s ease,
+            transform 0.25s ease;
     }
 
+    .contact:hover {
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.45);
+        transform: translateY(-1px);
+    }
+
+
     /* =========================================================
-       CONCEPT LABELS
+       CENTRAL MESSAGE
+       ========================================================= */
+
+    .hero {
+        position: absolute;
+
+        top: 30%;
+        left: 50%;
+
+        transform: translateX(-50%);
+
+        width: 90%;
+        text-align: center;
+
+        z-index: 4;
+    }
+
+    .hero h1 {
+        font-size: clamp(44px, 5vw, 74px);
+
+        font-weight: 400;
+        letter-spacing: -3px;
+
+        line-height: 1.05;
+
+        color: #f5f5f5;
+    }
+
+
+    /* =========================================================
+       COMING SOON
+       ========================================================= */
+
+    .coming-soon {
+        position: absolute;
+
+        top: 46%;
+        left: 50%;
+
+        transform: translate(-50%, -50%);
+
+        min-width: 350px;
+
+        padding: 30px 50px;
+
+        border-radius: 15px;
+
+        border: 1px solid rgba(255,255,255,0.22);
+
+        background:
+            linear-gradient(
+                145deg,
+                rgba(55,55,55,0.65),
+                rgba(12,12,12,0.78)
+            );
+
+        box-shadow:
+            0 12px 35px rgba(0,0,0,0.65),
+            inset 0 1px 0 rgba(255,255,255,0.06);
+
+        color: #f4f4f4;
+
+        text-align: center;
+
+        font-size: 35px;
+        font-weight: 400;
+
+        z-index: 4;
+    }
+
+
+    /* =========================================================
+       FIELD LABELS
        ========================================================= */
 
     .label {
         position: absolute;
+
+        color: rgba(255,255,255,0.9);
+
+        font-size: 13px;
+        font-weight: 400;
+
         z-index: 4;
 
-        color: rgba(255,255,255,0.92);
-        font-size: 14px;
-        font-weight: 400;
+        white-space: nowrap;
     }
 
     .private {
@@ -169,110 +298,113 @@
     }
 
     .axis {
-        top: 58%;
-        right: 13%;
+        top: 59%;
+        right: 15%;
     }
 
     .redesign {
-        bottom: 18%;
+        bottom: 17%;
         left: 3%;
     }
 
     .optimize {
-        bottom: 10%;
-        left: 46%;
+        bottom: 9%;
+        left: 47%;
     }
+
 
     /* =========================================================
-       HERO
+       RESPONSIVE
        ========================================================= */
 
-    .hero {
-        position: absolute;
-        top: 27%;
-        left: 50%;
-        transform: translateX(-50%);
-
-        width: 90%;
-        text-align: center;
-
-        z-index: 4;
-    }
-
-    .hero h1 {
-        font-size: clamp(48px, 4.2vw, 72px);
-        font-weight: 300;
-        letter-spacing: -2px;
-        line-height: 1.1;
-        color: #f5f5f5;
-        white-space: nowrap;
-    }
-
-    /* =========================================================
-       COMING SOON
-       ========================================================= */
-
-    .coming-soon {
-        position: absolute;
-        top: 45%;
-        left: 50%;
-        transform: translateX(-50%);
-
-        width: 352px;
-        height: 102px;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        border-radius: 15px;
-
-        border: 1px solid rgba(255,255,255,0.22);
-
-        background:
-            linear-gradient(
-                145deg,
-                rgba(50,50,50,0.78),
-                rgba(15,15,15,0.82)
-            );
-
-        box-shadow:
-            0 0 35px rgba(255,255,255,0.055),
-            inset 0 1px 0 rgba(255,255,255,0.08);
-
-        color: #f5f5f5;
-
-        font-size: 34px;
-        font-weight: 300;
-
-        z-index: 4;
-    }
-
-    /* =========================================================
-       MOBILE
-       ========================================================= */
-
-    @media (max-width: 800px) {
+    @media (max-width: 900px) {
 
         .logo {
-            left: 16px;
+            left: 18px;
             top: 12px;
         }
 
-        .logo-ee {
-            font-size: 55px;
+        .logo-main {
+            font-size: 58px;
         }
 
-        .logo-name {
-            font-size: 11px;
+        .logo-sub {
+            font-size: 13px;
+            gap: 18px;
             margin-left: 18px;
         }
 
         .contact {
-            top: 15px;
-            right: 15px;
-            padding: 11px 18px;
-            font-size: 13px;
+            right: 18px;
+            top: 18px;
+
+            padding: 11px 20px;
+
+            font-size: 14px;
+        }
+
+        .hero {
+            top: 31%;
+        }
+
+        .hero h1 {
+            font-size: clamp(38px, 7vw, 58px);
+            letter-spacing: -2px;
+        }
+
+        .coming-soon {
+            min-width: 290px;
+            padding: 24px 35px;
+            font-size: 28px;
+        }
+
+        .coordinate-globe {
+            left: -20%;
+            bottom: -10%;
+            width: 105vw;
+        }
+
+        .private {
+            top: 18%;
+            left: 40%;
+        }
+
+        .secure {
+            top: 26%;
+            right: 9%;
+        }
+
+        .vector {
+            left: 10%;
+            top: 36%;
+        }
+
+        .axis {
+            right: 8%;
+            top: 61%;
+        }
+
+        .optimize {
+            left: 44%;
+        }
+    }
+
+
+    @media (max-width: 600px) {
+
+        .logo-main {
+            font-size: 46px;
+        }
+
+        .logo-sub {
+            font-size: 11px;
+            gap: 14px;
+            margin-left: 14px;
+        }
+
+        .contact {
+            padding: 9px 15px;
+            font-size: 12px;
         }
 
         .hero {
@@ -280,259 +412,145 @@
         }
 
         .hero h1 {
-            white-space: normal;
-            font-size: 40px;
+            font-size: 38px;
+            letter-spacing: -1.5px;
         }
 
         .coming-soon {
-            top: 48%;
-            width: 280px;
-            height: 82px;
-            font-size: 26px;
+            top: 47%;
+            min-width: 240px;
+            padding: 20px 25px;
+            font-size: 22px;
         }
 
-        .private {
-            top: 20%;
-            left: 42%;
-        }
-
-        .secure {
-            top: 29%;
-            right: 8%;
+        .label {
+            font-size: 11px;
         }
 
         .vector {
-            top: 39%;
             left: 7%;
         }
 
+        .secure {
+            right: 6%;
+        }
+
         .axis {
-            top: 62%;
-            right: 8%;
+            right: 6%;
         }
 
         .redesign {
-            bottom: 17%;
             left: 4%;
         }
 
-        .optimize {
-            bottom: 8%;
-            left: 42%;
+        .coordinate-globe {
+            left: -35%;
+            bottom: -3%;
+            width: 125vw;
+            opacity: 0.13;
         }
     }
+
 </style>
 </head>
 
+
 <body>
 
-<!-- =========================================================
-     COORDINATE FIELD
-     ========================================================= -->
-
-<div class="coordinate-field">
-
-<svg
-    viewBox="0 0 1920 1080"
-    preserveAspectRatio="none"
-    xmlns="http://www.w3.org/2000/svg"
->
-
-    <!--
-        Main horizontal coordinate axis
-        originating from the lower-left region
-    -->
-    <path
-        class="axis-line"
-        d="M 80 720
-           C 450 718, 900 720, 1450 718
-           C 1680 717, 1810 716, 1880 716"
-    />
-
-    <!--
-        Main vertical axis
-        starts at the origin and rises upward.
-        No negative Y-axis.
-    -->
-    <path
-        class="axis-line"
-        d="M 80 720
-           C 80 580, 80 400, 80 210
-           L 80 70"
-    />
-
-    <!-- Origin -->
-    <circle
-        class="origin"
-        cx="80"
-        cy="720"
-        r="3"
-    />
-
     <!-- =====================================================
-         VERTICAL COORDINATE LINES
+         BACKGROUND
          ===================================================== -->
 
-    <path class="field-line"
-        d="M 210 720 L 210 95" />
+    <div class="background">
 
-    <path class="field-line"
-        d="M 390 720 L 390 70" />
+        <div class="coordinate-globe">
+            <img
+                src="eigen-entropy-coordinate-globe.png"
+                alt=""
+            >
+        </div>
 
-    <path class="field-line"
-        d="M 590 720 L 590 60" />
+    </div>
 
-    <path class="field-line"
-        d="M 810 720 L 810 55" />
+    <div class="ambient"></div>
 
-    <path class="field-line"
-        d="M 1040 720 L 1040 55" />
-
-    <path class="field-line"
-        d="M 1280 720 L 1280 65" />
-
-    <path class="field-line"
-        d="M 1510 720 L 1510 80" />
-
-    <path class="field-line"
-        d="M 1740 720 L 1740 105" />
 
     <!-- =====================================================
-         HORIZONTAL COORDINATE LINES
+         PAGE
          ===================================================== -->
 
-    <path class="field-line"
-        d="M 80 610
-           C 520 607, 1050 608, 1880 605" />
-
-    <path class="field-line"
-        d="M 80 500
-           C 520 495, 1100 496, 1880 490" />
-
-    <path class="field-line"
-        d="M 80 390
-           C 540 382, 1120 384, 1880 372" />
-
-    <path class="field-line"
-        d="M 80 280
-           C 560 270, 1150 273, 1880 250" />
-
-    <path class="field-line"
-        d="M 80 175
-           C 570 160, 1200 166, 1880 125" />
-
-    <!-- =====================================================
-         LARGE CURVED PERSPECTIVE LINES
-         ===================================================== -->
-
-    <path
-        class="field-line-light"
-        d="M 80 720
-           C 360 600, 690 515, 1000 470
-           C 1320 425, 1600 420, 1880 450"
-    />
-
-    <path
-        class="field-line"
-        d="M 80 720
-           C 420 540, 760 400, 1070 330
-           C 1370 260, 1630 260, 1880 300"
-    />
-
-    <path
-        class="field-line"
-        d="M 80 720
-           C 440 470, 760 290, 1080 215
-           C 1380 145, 1630 155, 1880 205"
-    />
-
-    <path
-        class="field-line"
-        d="M 80 720
-           C 460 400, 800 210, 1110 150
-           C 1400 95, 1650 105, 1880 155"
-    />
-
-    <!-- =====================================================
-         SUBTLE DIAGONAL DEPTH AXIS
-         ===================================================== -->
-
-    <path
-        class="axis-line"
-        d="M 80 720
-           C 420 500, 820 300, 1260 190
-           C 1490 130, 1690 105, 1880 95"
-    />
-
-</svg>
-
-</div>
+    <main class="page">
 
 
-<!-- =========================================================
-     PAGE
-     ========================================================= -->
+        <!-- LOGO -->
 
-<div class="page">
+        <div class="logo">
 
-    <!-- Logo -->
-    <div class="logo">
-        <div class="logo-ee">EE</div>
-        <div class="logo-name">Eigen&nbsp;&nbsp;&nbsp;Entropy</div>
-    </div>
+            <div class="logo-main">
+                EE
+            </div>
 
+            <div class="logo-sub">
+                <span>Eigen</span>
+                <span>Entropy</span>
+            </div>
 
-    <!-- Contact -->
-    <div class="contact">
-        Contact Us
-    </div>
+        </div>
 
 
-    <!-- Concept labels -->
+        <!-- CONTACT -->
 
-    <div class="label private">
-        Private
-    </div>
-
-    <div class="label secure">
-        Secure
-    </div>
-
-    <div class="label vector">
-        Vector
-    </div>
-
-    <div class="label axis">
-        Axis
-    </div>
-
-    <div class="label redesign">
-        Re-design
-    </div>
-
-    <div class="label optimize">
-        Optimize
-    </div>
+        <div class="contact">
+            Contact Us
+        </div>
 
 
-    <!-- Hero -->
+        <!-- FIELD LABELS -->
 
-    <main class="hero">
+        <div class="label private">
+            Private
+        </div>
 
-        <h1>
-            Decisions with Confidence
-        </h1>
+        <div class="label secure">
+            Secure
+        </div>
+
+        <div class="label vector">
+            Vector
+        </div>
+
+        <div class="label axis">
+            Axis
+        </div>
+
+        <div class="label redesign">
+            Re-design
+        </div>
+
+        <div class="label optimize">
+            Optimize
+        </div>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <h1>
+                Decisions with Confidence
+            </h1>
+
+        </section>
+
+
+        <!-- COMING SOON -->
+
+        <div class="coming-soon">
+            Coming Soon...
+        </div>
+
 
     </main>
-
-
-    <!-- Coming Soon -->
-
-    <div class="coming-soon">
-        Coming Soon...
-    </div>
-
-</div>
 
 </body>
 </html>
