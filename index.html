@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>Eigen Entropy</title>
 
 <style>
@@ -898,7 +899,7 @@
 
 </div>
 
-
+<script src="config.js"></script>
 <script>
     const contactButton = document.getElementById("contactButton");
     const contactOverlay = document.getElementById("contactOverlay");
@@ -951,7 +952,7 @@
     // Paste your deployed /exec URL between the quotes.
     // =====================================================
 
-    const API_URL = "https://script.google.com/macros/s/AKfycbx6YbVir4Uq-tptdKY1jofs68t5p-hPkupUgxfGwEQ98_DG7pxpFmSlnXmOQewnDPZd/exec";
+   
 
     contactForm.addEventListener("submit", async function (event) {
         event.preventDefault();
@@ -961,7 +962,7 @@
             return;
         }
 
-        if (API_URL === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
+        if (EE_CONFIG.contactApiUrl === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
             alert("The contact form is not connected yet. Please add the Apps Script Web App URL.");
             return;
         }
@@ -977,7 +978,7 @@
         };
 
         try {
-            const response = await fetch(API_URL, {
+            const response = await fetch(EE_CONFIG.contactApiUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "text/plain;charset=utf-8"
