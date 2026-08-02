@@ -421,6 +421,191 @@
     }
 
 
+
+    /* =====================================================
+       CONTACT MODAL
+       ===================================================== */
+
+    .contact-overlay {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(0, 0, 0, 0.72);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+        z-index: 100;
+    }
+
+    .contact-overlay.open {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+
+    .contact-modal {
+        position: relative;
+        width: min(520px, 100%);
+        max-height: calc(100vh - 48px);
+        overflow-y: auto;
+        padding: 34px;
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 20px;
+        background: linear-gradient(145deg, rgba(32,32,32,0.97), rgba(8,8,8,0.98));
+        box-shadow: 0 30px 90px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.06);
+        transform: translateY(14px) scale(0.98);
+        transition: transform 0.28s ease;
+    }
+
+    .contact-overlay.open .contact-modal {
+        transform: translateY(0) scale(1);
+    }
+
+    .contact-close {
+        position: absolute;
+        top: 16px;
+        right: 18px;
+        width: 34px;
+        height: 34px;
+        border: 0;
+        background: transparent;
+        color: rgba(255,255,255,0.72);
+        font-size: 28px;
+        line-height: 1;
+        cursor: pointer;
+    }
+
+    .contact-close:hover {
+        color: #fff;
+    }
+
+    .contact-title {
+        margin-bottom: 8px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 34px;
+        font-weight: 400;
+        letter-spacing: -1px;
+    }
+
+    .contact-intro {
+        margin-bottom: 26px;
+        color: rgba(255,255,255,0.62);
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 17px;
+    }
+
+    .contact-field {
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .contact-field label {
+        color: rgba(255,255,255,0.78);
+        font-size: 13px;
+    }
+
+    .contact-field label span {
+        color: rgba(255,255,255,0.45);
+    }
+
+    .contact-field input,
+    .contact-field textarea {
+        width: 100%;
+        border: 1px solid rgba(255,255,255,0.16);
+        border-radius: 9px;
+        outline: none;
+        background: rgba(255,255,255,0.035);
+        color: #fff;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 15px;
+        transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .contact-field input {
+        height: 46px;
+        padding: 0 13px;
+    }
+
+    .contact-field textarea {
+        min-height: 115px;
+        padding: 12px 13px;
+        resize: vertical;
+    }
+
+    .contact-field input:focus,
+    .contact-field textarea:focus {
+        border-color: rgba(255,255,255,0.42);
+        background: rgba(255,255,255,0.055);
+    }
+
+    .contact-submit {
+        width: 100%;
+        height: 50px;
+        margin-top: 5px;
+        border: 1px solid rgba(255,255,255,0.24);
+        border-radius: 10px;
+        background: #fff;
+        color: #000;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .contact-submit:hover {
+        transform: translateY(-1px);
+    }
+
+    .contact-submit:disabled {
+        opacity: 0.55;
+        cursor: wait;
+        transform: none;
+    }
+
+    .contact-success {
+        display: none;
+        padding: 28px 8px 8px;
+        text-align: center;
+    }
+
+    .contact-success.show {
+        display: block;
+    }
+
+    .contact-success h3 {
+        margin-bottom: 10px;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 28px;
+        font-weight: 400;
+    }
+
+    .contact-success p {
+        color: rgba(255,255,255,0.62);
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    .contact-form.hidden {
+        display: none;
+    }
+
+    button.contact {
+        font-family: Arial, Helvetica, sans-serif;
+        cursor: pointer;
+    }
+
     /* =====================================================
        MOBILE
        ===================================================== */
@@ -555,6 +740,19 @@
             left: 43%;
             bottom: 8%;
         }
+
+        .contact-modal {
+            padding: 28px 22px 24px;
+            border-radius: 16px;
+        }
+
+        .contact-title {
+            font-size: 29px;
+        }
+
+        .contact-intro {
+            font-size: 13px;
+        }
     }
 
 </style>
@@ -587,9 +785,9 @@
          CONTACT
          ================================================= -->
 
-    <div class="contact">
+    <button class="contact" id="contactButton" type="button">
         Contact Us
-    </div>
+    </button>
 
 
     <!-- =================================================
@@ -638,7 +836,172 @@
     </main>
 
 
+
+    <!-- =================================================
+         CONTACT MODAL
+         ================================================= -->
+
+    <div class="contact-overlay" id="contactOverlay" aria-hidden="true">
+
+        <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+
+            <button class="contact-close" id="contactClose" type="button" aria-label="Close contact form">
+                &times;
+            </button>
+
+            <div id="contactContent">
+
+                <h2 class="contact-title" id="contactTitle">
+                    Let's connect.
+                </h2>
+
+                <p class="contact-intro">
+                    Tell us a little about what you're looking to solve.
+                </p>
+
+                <form class="contact-form" id="contactForm">
+
+                    <div class="contact-field">
+                        <label for="contactName">Name <span>*</span></label>
+                        <input id="contactName" name="name" type="text" autocomplete="name" required>
+                    </div>
+
+                    <div class="contact-field">
+                        <label for="contactEmail">Work Email <span>*</span></label>
+                        <input id="contactEmail" name="email" type="email" autocomplete="email" required>
+                    </div>
+
+                    <div class="contact-field">
+                        <label for="contactCompany">Company / Organization</label>
+                        <input id="contactCompany" name="company" type="text" autocomplete="organization">
+                    </div>
+
+                    <div class="contact-field">
+                        <label for="contactMessage">Message <span>*</span></label>
+                        <textarea id="contactMessage" name="message" required></textarea>
+                    </div>
+
+                    <button class="contact-submit" id="contactSubmit" type="submit">
+                        Send Message
+                    </button>
+
+                </form>
+
+                <div class="contact-success" id="contactSuccess">
+                    <h3>Thank you.</h3>
+                    <p>We've received your message and will be in touch.</p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
 </div>
+
+
+<script>
+    const contactButton = document.getElementById("contactButton");
+    const contactOverlay = document.getElementById("contactOverlay");
+    const contactClose = document.getElementById("contactClose");
+    const contactForm = document.getElementById("contactForm");
+    const contactSubmit = document.getElementById("contactSubmit");
+    const contactSuccess = document.getElementById("contactSuccess");
+
+    function openContact() {
+        contactOverlay.classList.add("open");
+        contactOverlay.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+
+        setTimeout(function () {
+            document.getElementById("contactName").focus();
+        }, 250);
+    }
+
+    function closeContact() {
+        contactOverlay.classList.remove("open");
+        contactOverlay.setAttribute("aria-hidden", "true");
+        document.body.style.overflow = "";
+
+        setTimeout(function () {
+            contactForm.reset();
+            contactForm.classList.remove("hidden");
+            contactSuccess.classList.remove("show");
+            contactSubmit.disabled = false;
+            contactSubmit.textContent = "Send Message";
+        }, 250);
+    }
+
+    contactButton.addEventListener("click", openContact);
+    contactClose.addEventListener("click", closeContact);
+
+    contactOverlay.addEventListener("click", function (event) {
+        if (event.target === contactOverlay) {
+            closeContact();
+        }
+    });
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "Escape" && contactOverlay.classList.contains("open")) {
+            closeContact();
+        }
+    });
+
+    // =====================================================
+    // GOOGLE APPS SCRIPT CONTACT ENDPOINT
+    // Paste your deployed /exec URL between the quotes.
+    // =====================================================
+
+    const API_URL = "https://script.google.com/macros/s/AKfycbx6YbVir4Uq-tptdKY1jofs68t5p-hPkupUgxfGwEQ98_DG7pxpFmSlnXmOQewnDPZd/exec";
+
+    contactForm.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        if (!contactForm.checkValidity()) {
+            contactForm.reportValidity();
+            return;
+        }
+
+        if (API_URL === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
+            alert("The contact form is not connected yet. Please add the Apps Script Web App URL.");
+            return;
+        }
+
+        contactSubmit.disabled = true;
+        contactSubmit.textContent = "Sending...";
+
+        const formData = {
+            name: document.getElementById("contactName").value.trim(),
+            email: document.getElementById("contactEmail").value.trim(),
+            company: document.getElementById("contactCompany").value.trim(),
+            message: document.getElementById("contactMessage").value.trim()
+        };
+
+        try {
+            const response = await fetch(API_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                body: JSON.stringify(formData)
+            });
+
+            const result = await response.json();
+
+            if (!result.success) {
+                throw new Error(result.error || "Submission failed.");
+            }
+
+            contactForm.classList.add("hidden");
+            contactSuccess.classList.add("show");
+
+        } catch (error) {
+            console.error("Contact form error:", error);
+            contactSubmit.disabled = false;
+            contactSubmit.textContent = "Send Message";
+            alert("We couldn't send your message right now. Please try again.");
+        }
+    });
+</script>
 
 </body>
 </html>
