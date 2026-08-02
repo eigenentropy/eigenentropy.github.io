@@ -1,49 +1,442 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eigen Entropy</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eigen Entropy — Decisions with Confidence</title>
 
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-        }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-        body {
-            background-color: rgb(36, 24, 201);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            font-family: Arial, Helvetica, sans-serif;
-        }
+html, body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+}
 
-        .brand-name {
-            color: rgb(255, 251, 5);
-            font-size: clamp(3rem, 8vw, 7rem);
-            font-weight: 700;
-            letter-spacing: 0.02em;
-        }
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #eee;
+  overflow: hidden;
+}
 
-        .tagline {
-            color: rgb(255, 255, 255);
-            font-size: clamp(1.2rem, 3vw, 2rem);
-            font-style: italic;
-            margin-top: 12px;
-        }
-    </style>
+.page {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 620px;
+  background: #000;
+  overflow: hidden;
+}
+
+/* --------------------------------
+   Background grid
+-------------------------------- */
+
+.grid {
+  position: absolute;
+  inset: 0;
+  opacity: .22;
+}
+
+.v,
+.h,
+.curve {
+  position: absolute;
+  background: rgba(140, 140, 140, .22);
+}
+
+.v {
+  width: 1px;
+  top: 7%;
+  bottom: 0;
+}
+
+.h {
+  height: 1px;
+  left: 0;
+  right: 0;
+}
+
+.v1 { left: 6.5%; }
+.v2 { left: 21%; }
+.v3 { left: 36%; }
+.v4 { left: 51%; }
+.v5 { left: 66%; }
+.v6 { left: 81%; }
+.v7 { left: 94%; }
+
+.h1 { top: 36%; }
+.h2 { top: 58%; }
+.h3 { top: 84%; }
+
+.curve {
+  height: 1px;
+  transform-origin: center;
+}
+
+.curve1 {
+  width: 115%;
+  left: -7%;
+  top: 26%;
+  transform: rotate(5deg);
+}
+
+.curve2 {
+  width: 115%;
+  left: -7%;
+  top: 50%;
+  transform: rotate(-4deg);
+}
+
+/* --------------------------------
+   Header
+-------------------------------- */
+
+header {
+  position: absolute;
+  z-index: 5;
+  top: 16px;
+  left: 20px;
+  right: 20px;
+  height: 56px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* EE logo */
+
+.logo {
+  width: 170px;
+  color: #1838ff;
+
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 900;
+  font-style: italic;
+
+  line-height: .72;
+  letter-spacing: -8px;
+
+  text-shadow: 0 0 2px #1838ff;
+}
+
+.logo .ee {
+  font-size: 64px;
+}
+
+.logo .words {
+  display: flex;
+  gap: 18px;
+
+  margin: 5px 0 0 20px;
+
+  font-size: 13px;
+  letter-spacing: 0;
+}
+
+/* Navigation structure */
+
+nav {
+  position: absolute;
+
+  left: 21%;
+  right: 19%;
+  top: 0;
+
+  height: 52px;
+
+  display: flex;
+  justify-content: center;
+}
+
+nav span {
+  width: 120px;
+  height: 52px;
+
+  border-left: 1px solid rgba(255,255,255,.03);
+  border-right: 1px solid rgba(255,255,255,.03);
+}
+
+/* Contact button */
+
+.contact {
+  border: 1px solid rgba(255,255,255,.18);
+  border-radius: 30px;
+
+  padding: 12px 24px;
+
+  color: #ddd;
+  background: #111;
+
+  box-shadow:
+    0 0 8px rgba(255,255,255,.08);
+
+  font-size: 14px;
+}
+
+/* --------------------------------
+   Small labels
+-------------------------------- */
+
+.label {
+  position: absolute;
+  z-index: 10;
+
+  color: #fff;
+
+  font-size: 11px;
+
+  white-space: nowrap;
+}
+
+.private {
+  top: 17%;
+  left: 43%;
+}
+
+.secure {
+  top: 25%;
+  right: 19%;
+}
+
+/* Vector moved further left */
+
+.vector {
+  top: 35%;
+  left: 15%;
+}
+
+.axis {
+  top: 57%;
+  right: 14%;
+}
+
+/* Re-design */
+
+.redesign {
+  bottom: 19%;
+  left: 3%;
+
+  color: #fff;
+  font-size: 11px;
+}
+
+/* Optimize */
+
+.optimize {
+  bottom: 12%;
+  left: 46%;
+
+  color: #fff;
+  font-size: 11px;
+}
+
+/* --------------------------------
+   Main hero
+-------------------------------- */
+
+.hero {
+  position: absolute;
+  z-index: 3;
+
+  left: 50%;
+  top: 43%;
+
+  transform: translate(-50%, -50%);
+
+  width: min(850px, 78vw);
+
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 42px;
+
+  font-size: clamp(38px, 4vw, 58px);
+
+  line-height: 1;
+  font-weight: 500;
+
+  letter-spacing: -1.5px;
+}
+
+/* Coming Soon */
+
+.coming {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  min-width: 290px;
+  height: 84px;
+
+  padding: 0 42px;
+
+  border-radius: 12px;
+
+  color: #eee;
+
+  font-size: 29px;
+  font-weight: 300;
+
+  background: linear-gradient(#222, #111);
+
+  border: 1px solid #4a4a4a;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08),
+    0 0 30px rgba(255,255,255,.05);
+}
+
+/* --------------------------------
+   Mobile
+-------------------------------- */
+
+@media (max-width: 700px) {
+
+  nav {
+    display: none;
+  }
+
+  .logo {
+    transform: scale(.75);
+    transform-origin: left center;
+  }
+
+  .contact {
+    padding: 9px 15px;
+    font-size: 12px;
+  }
+
+  .hero {
+    top: 46%;
+    width: 90vw;
+  }
+
+  h1 {
+    font-size: 36px;
+    margin-bottom: 34px;
+  }
+
+  .coming {
+    min-width: 230px;
+    height: 68px;
+    font-size: 23px;
+  }
+}
+</style>
 </head>
 
 <body>
 
-    <main>
-        <div class="brand-name">Eigen Entropy</div>
-        <div class="tagline">Coming Soon</div>
-    </main>
+<div class="page">
+
+  <!-- Background grid -->
+
+  <div class="grid" aria-hidden="true">
+
+    <div class="v v1"></div>
+    <div class="v v2"></div>
+    <div class="v v3"></div>
+    <div class="v v4"></div>
+    <div class="v v5"></div>
+    <div class="v v6"></div>
+    <div class="v v7"></div>
+
+    <div class="h h1"></div>
+    <div class="h h2"></div>
+    <div class="h h3"></div>
+
+    <div class="curve curve1"></div>
+    <div class="curve curve2"></div>
+
+  </div>
+
+
+  <!-- Header -->
+
+  <header>
+
+    <div class="logo">
+
+      <div class="ee">
+        E E
+      </div>
+
+      <div class="words">
+        <span>Eigen</span>
+        <span>Entropy</span>
+      </div>
+
+    </div>
+
+
+    <nav aria-label="Main navigation">
+
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+
+    </nav>
+
+
+    <div class="contact">
+      Contact Us
+    </div>
+
+  </header>
+
+
+  <!-- Small labels -->
+
+  <div class="label private">
+    Private
+  </div>
+
+  <div class="label secure">
+    Secure
+  </div>
+
+  <div class="label vector">
+    Vector
+  </div>
+
+  <div class="label axis">
+    Axis
+  </div>
+
+  <div class="label redesign">
+    Re-design
+  </div>
+
+  <div class="label optimize">
+    Optimize
+  </div>
+
+
+  <!-- Main content -->
+
+  <main class="hero">
+
+    <h1>
+      Decisions with Confidence
+    </h1>
+
+    <div class="coming">
+      Coming Soon...
+    </div>
+
+  </main>
+
+</div>
 
 </body>
 </html>
