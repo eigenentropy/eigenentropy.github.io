@@ -3,56 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
 <title>Eigen Entropy</title>
-
 <style>
     * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
     }
-
     html,
     body {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background: #000;
+        background: #021A4D;
         color: #fff;
         font-family: Arial, Helvetica, sans-serif;
     }
-
     body {
         position: relative;
     }
-
-
     /* =====================================================
        PAGE
        ===================================================== */
-
     .page {
         position: relative;
         width: 100%;
         height: 100vh;
         overflow: hidden;
-        background: #000;
+        background: #021A4D;
     }
-
-
     /* =====================================================
        LOGO
        ===================================================== */
-
     .logo {
         position: absolute;
         top: 14px;
         left: 24px;
         z-index: 10;
     }
-
     .logo-ee {
         font-family: Georgia, "Times New Roman", serif;
         font-size: 76px;
@@ -62,352 +50,253 @@
         letter-spacing: -6px;
         color: #fff;
     }
-
   .logo-name {
     margin-top: 8px;
     padding-left: 4px;
-
     font-family: Georgia, "Times New Roman", serif;
     font-size: 17px;
     font-weight: bold;
     font-style: italic;
-
     color: #fff;
 }
-
-
     /* =====================================================
        CONTACT
        ===================================================== */
-
     .contact {
         position: absolute;
         top: 22px;
         right: 28px;
-
         padding: 14px 31px;
-
         border: 1px solid rgba(255,255,255,0.25);
         border-radius: 40px;
-
         background: rgba(255,255,255,0.025);
-
         color: #fff;
-
         font-size: 16px;
         font-weight: 400;
-
         z-index: 10;
     }
-
-
     /* =====================================================
        HERO
        ===================================================== */
-
     .hero {
         position: absolute;
-
         top: 29%;
         left: 50%;
-
         width: 100%;
-
         transform: translateX(-50%);
-
         text-align: center;
-
         z-index: 6;
     }
-
     .hero h1 {
         margin: 0;
-
         color: #f5f5f5;
-
         font-size: clamp(48px, 5vw, 74px);
         font-weight: 400;
-
         letter-spacing: -3px;
         line-height: 1.05;
     }
-
-
     /* =====================================================
        COMING SOON
        ===================================================== */
-
     .coming-soon {
         display: flex;
         align-items: center;
         justify-content: center;
-
         width: 390px;
         height: 104px;
-
         margin: 28px auto 0;
-
         border: 1px solid rgba(255,255,255,0.24);
         border-radius: 17px;
-
         background:
-            linear-gradient(
-                145deg,
-                rgba(48,48,48,0.9),
-                rgba(13,13,13,0.95)
-            );
-
+        linear-gradient(
+           145deg,
+           #123062,
+           #021A4D
+         );
         box-shadow:
             0 18px 45px rgba(0,0,0,0.55),
             inset 0 1px 0 rgba(255,255,255,0.07);
-
         color: #fff;
-
         font-size: 34px;
         font-weight: 400;
     }
-
-
     /* =====================================================
        FLOATING CONCEPT WORDS
-       ===================================================== */
-
+      ===================================================== */
     .concept {
         position: absolute;
-
         color: rgba(255,255,255,0.88);
-
         font-size: 14px;
         font-weight: 400;
-
         white-space: nowrap;
-
         z-index: 5;
-
         will-change: transform;
     }
-
-
     /* -----------------------------------------------------
        PRIVATE
        ----------------------------------------------------- */
-
     .private {
         left: 42%;
         top: 17%;
-
         animation:
             privateFloat
             18s
             ease-in-out
             infinite;
     }
-
     @keyframes privateFloat {
-
         0% {
             transform: translate(0px, 0px);
         }
-
         25% {
             transform: translate(35px, 18px);
         }
-
         50% {
             transform: translate(12px, 42px);
         }
-
         75% {
             transform: translate(-28px, 20px);
         }
-
         100% {
             transform: translate(0px, 0px);
         }
     }
-
-
     /* -----------------------------------------------------
        SECURE
        ----------------------------------------------------- */
-
     .secure {
         right: 17%;
         top: 25%;
-
         animation:
             secureFloat
             21s
             ease-in-out
             infinite;
     }
-
     @keyframes secureFloat {
-
         0% {
             transform: translate(0px, 0px);
         }
-
         25% {
             transform: translate(-28px, 26px);
         }
-
         50% {
             transform: translate(-55px, 5px);
         }
-
         75% {
             transform: translate(-20px, -22px);
         }
-
         100% {
             transform: translate(0px, 0px);
         }
     }
-
-
     /* -----------------------------------------------------
        VECTOR
        ----------------------------------------------------- */
-
     .vector {
         left: 15%;
         top: 36%;
-
         animation:
             vectorFloat
             24s
             ease-in-out
             infinite;
     }
-
     @keyframes vectorFloat {
-
         0% {
             transform: translate(0px, 0px);
         }
-
         25% {
             transform: translate(28px, -25px);
         }
-
         50% {
             transform: translate(62px, 10px);
         }
-
         75% {
             transform: translate(30px, 35px);
         }
-
         100% {
             transform: translate(0px, 0px);
         }
     }
-
-
     /* -----------------------------------------------------
        AXIS
        ----------------------------------------------------- */
-
     .axis {
         right: 14%;
         top: 59%;
-
         animation:
             axisFloat
             20s
             ease-in-out
             infinite;
     }
-
     @keyframes axisFloat {
-
         0% {
             transform: translate(0px, 0px);
         }
-
         25% {
             transform: translate(-35px, -18px);
         }
-
         50% {
             transform: translate(-8px, -45px);
         }
-
         75% {
             transform: translate(28px, -20px);
         }
-
         100% {
             transform: translate(0px, 0px);
         }
     }
-
-
     /* -----------------------------------------------------
        RE-DESIGN
        ----------------------------------------------------- */
-
     .redesign {
         left: 4%;
         bottom: 16%;
-
         animation:
             redesignFloat
             23s
             ease-in-out
             infinite;
     }
-
     @keyframes redesignFloat {
 
         0% {
             transform: translate(0px, 0px);
         }
-
         25% {
             transform: translate(40px, -15px);
         }
-
         50% {
             transform: translate(70px, 8px);
         }
-
         75% {
             transform: translate(35px, 30px);
         }
-
         100% {
             transform: translate(0px, 0px);
         }
     }
-
-
     /* -----------------------------------------------------
        OPTIMIZE
        ----------------------------------------------------- */
-
     .optimize {
         left: 47%;
         bottom: 8%;
-
         animation:
             optimizeFloat
             19s
             ease-in-out
             infinite;
     }
-
     @keyframes optimizeFloat {
-
         0% {
             transform: translate(0px, 0px);
         }
-
         25% {
             transform: translate(-30px, -25px);
         }
-
         50% {
             transform: translate(15px, -48px);
         }
@@ -415,18 +304,13 @@
         75% {
             transform: translate(45px, -20px);
         }
-
         100% {
             transform: translate(0px, 0px);
         }
     }
-
-
-
     /* =====================================================
        CONTACT MODAL
        ===================================================== */
-
     .contact-overlay {
         position: fixed;
         inset: 0;
@@ -434,7 +318,7 @@
         align-items: center;
         justify-content: center;
         padding: 24px;
-        background: rgba(0, 0, 0, 0.72);
+        background: rgba(2, 26, 77, 0.78);
         backdrop-filter: blur(8px);
         opacity: 0;
         visibility: hidden;
@@ -442,13 +326,11 @@
         transition: opacity 0.25s ease, visibility 0.25s ease;
         z-index: 100;
     }
-
     .contact-overlay.open {
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
     }
-
     .contact-modal {
         position: relative;
         width: min(520px, 100%);
@@ -457,16 +339,14 @@
         padding: 34px;
         border: 1px solid rgba(255,255,255,0.18);
         border-radius: 20px;
-        background: linear-gradient(145deg, rgba(32,32,32,0.97), rgba(8,8,8,0.98));
+        background: linear-gradient(145deg, rgba(18,45,98,0.98), rgba(2,26,77,0.99));
         box-shadow: 0 30px 90px rgba(0,0,0,0.75), inset 0 1px 0 rgba(255,255,255,0.06);
         transform: translateY(14px) scale(0.98);
         transition: transform 0.28s ease;
     }
-
     .contact-overlay.open .contact-modal {
         transform: translateY(0) scale(1);
     }
-
     .contact-close {
         position: absolute;
         top: 16px;
@@ -480,11 +360,9 @@
         line-height: 1;
         cursor: pointer;
     }
-
     .contact-close:hover {
         color: #fff;
     }
-
     .contact-title {
         margin-bottom: 8px;
         font-family: Georgia, "Times New Roman", serif;
@@ -492,35 +370,29 @@
         font-weight: 400;
         letter-spacing: -1px;
     }
-
     .contact-intro {
         margin-bottom: 26px;
         color: rgba(255,255,255,0.62);
         font-size: 14px;
         line-height: 1.55;
     }
-
     .contact-form {
         display: flex;
         flex-direction: column;
         gap: 17px;
     }
-
     .contact-field {
         display: flex;
         flex-direction: column;
         gap: 7px;
     }
-
     .contact-field label {
         color: rgba(255,255,255,0.78);
         font-size: 13px;
     }
-
     .contact-field label span {
         color: rgba(255,255,255,0.45);
     }
-
     .contact-field input,
     .contact-field textarea {
         width: 100%;
@@ -533,24 +405,20 @@
         font-size: 15px;
         transition: border-color 0.2s ease, background 0.2s ease;
     }
-
     .contact-field input {
         height: 46px;
         padding: 0 13px;
     }
-
     .contact-field textarea {
         min-height: 115px;
         padding: 12px 13px;
         resize: vertical;
     }
-
     .contact-field input:focus,
     .contact-field textarea:focus {
         border-color: rgba(255,255,255,0.42);
         background: rgba(255,255,255,0.055);
     }
-
     .contact-submit {
         width: 100%;
         height: 50px;
@@ -558,347 +426,260 @@
         border: 1px solid rgba(255,255,255,0.24);
         border-radius: 10px;
         background: #fff;
-        color: #000;
+        color: #021A4D;
         font-size: 15px;
         font-weight: 600;
         cursor: pointer;
         transition: opacity 0.2s ease, transform 0.2s ease;
     }
-
     .contact-submit:hover {
         transform: translateY(-1px);
     }
-
     .contact-submit:disabled {
         opacity: 0.55;
         cursor: wait;
         transform: none;
     }
-
     .contact-success {
         display: none;
         padding: 28px 8px 8px;
         text-align: center;
     }
-
     .contact-success.show {
         display: block;
     }
-
     .contact-success h3 {
         margin-bottom: 10px;
         font-family: Georgia, "Times New Roman", serif;
         font-size: 28px;
         font-weight: 400;
     }
-
     .contact-success p {
         color: rgba(255,255,255,0.62);
         font-size: 14px;
         line-height: 1.55;
     }
-
     .contact-form.hidden {
         display: none;
     }
-
     button.contact {
         font-family: Arial, Helvetica, sans-serif;
         cursor: pointer;
     }
-
     /* =====================================================
        MOBILE
        ===================================================== */
-
     @media (max-width: 900px) {
-
         .logo {
             left: 18px;
             top: 12px;
         }
-
         .logo-ee {
             font-size: 60px;
         }
-
         .logo-name {
             font-size: 14px;
             gap: 20px;
             padding-left: 20px;
         }
-
         .contact {
             top: 18px;
             right: 18px;
             padding: 11px 21px;
             font-size: 14px;
         }
-
         .hero {
             top: 32%;
         }
-
         .hero h1 {
             font-size: 44px;
             letter-spacing: -2px;
         }
-
         .coming-soon {
             width: 300px;
             height: 82px;
             font-size: 27px;
         }
-
         .concept {
             font-size: 12px;
         }
-
         .vector {
             left: 10%;
         }
-
         .secure {
             right: 9%;
         }
-
         .axis {
             right: 9%;
         }
     }
-
-
     @media (max-width: 600px) {
-
         .logo {
             left: 15px;
             top: 12px;
         }
-
         .logo-ee {
             font-size: 48px;
         }
-
         .logo-name {
             font-size: 11px;
             gap: 15px;
             padding-left: 17px;
         }
-
         .contact {
             top: 15px;
             right: 12px;
             padding: 9px 16px;
             font-size: 12px;
         }
-
         .hero {
             top: 32%;
         }
-
         .hero h1 {
             font-size: 36px;
             letter-spacing: -1.5px;
         }
-
         .coming-soon {
             width: 260px;
             height: 70px;
             margin-top: 22px;
             font-size: 23px;
         }
-
         .concept {
             font-size: 11px;
         }
-
         .private {
             left: 40%;
             top: 20%;
         }
-
         .secure {
             right: 7%;
             top: 27%;
         }
-
         .vector {
             left: 7%;
             top: 38%;
         }
-
         .axis {
             right: 7%;
             top: 62%;
         }
-
         .redesign {
             left: 4%;
             bottom: 17%;
         }
-
         .optimize {
             left: 43%;
             bottom: 8%;
         }
-
         .contact-modal {
             padding: 28px 22px 24px;
             border-radius: 16px;
         }
-
         .contact-title {
             font-size: 29px;
         }
-
         .contact-intro {
             font-size: 13px;
         }
     }
-
 </style>
 </head>
-
-
 <body>
-
 <div class="page">
-
-
     <!-- =================================================
          LOGO
          ================================================= -->
-
     <div class="logo">
-
         <div class="logo-ee">
             EE
         </div>
-
         <div class="logo-name">
             <span>Eigen Entropy</span>
         </div>
-
     </div>
-
-
     <!-- =================================================
          CONTACT
          ================================================= -->
-
     <button class="contact" id="contactButton" type="button">
         Contact Us
     </button>
-
-
     <!-- =================================================
          FLOATING WORDS
          ================================================= -->
-
     <div class="concept private">
         Private
     </div>
-
     <div class="concept secure">
         Secure
     </div>
-
     <div class="concept vector">
         Vector
     </div>
-
     <div class="concept axis">
         Axis
     </div>
-
     <div class="concept redesign">
         Re-design
     </div>
-
     <div class="concept optimize">
         Optimize
     </div>
-
-
     <!-- =================================================
          HERO
          ================================================= -->
-
     <main class="hero">
-
         <h1>
             Decisions with Confidence
         </h1>
-
         <div class="coming-soon">
             Coming Soon...
         </div>
-
     </main>
-
-
-
     <!-- =================================================
          CONTACT MODAL
          ================================================= -->
-
     <div class="contact-overlay" id="contactOverlay" aria-hidden="true">
-
         <div class="contact-modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
-
             <button class="contact-close" id="contactClose" type="button" aria-label="Close contact form">
                 &times;
             </button>
-
             <div id="contactContent">
-
                 <h2 class="contact-title" id="contactTitle">
                     Let's connect.
                 </h2>
-
                 <p class="contact-intro">
                     Tell us a little about what you're looking to solve.
                 </p>
-
                 <form class="contact-form" id="contactForm">
-
                     <div class="contact-field">
                         <label for="contactName">Name <span>*</span></label>
                         <input id="contactName" name="name" type="text" autocomplete="name" required>
                     </div>
-
                     <div class="contact-field">
                         <label for="contactEmail">Work Email <span>*</span></label>
                         <input id="contactEmail" name="email" type="email" autocomplete="email" required>
                     </div>
-
                     <div class="contact-field">
                         <label for="contactCompany">Company / Organization</label>
                         <input id="contactCompany" name="company" type="text" autocomplete="organization">
                     </div>
-
                     <div class="contact-field">
                         <label for="contactMessage">Message <span>*</span></label>
                         <textarea id="contactMessage" name="message" required></textarea>
                     </div>
-
                     <button class="contact-submit" id="contactSubmit" type="submit">
                         Send Message
                     </button>
-
                 </form>
-
                 <div class="contact-success" id="contactSuccess">
                     <h3>Thank you.</h3>
                     <p>We've received your message and will be in touch.</p>
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
-
 <script src="config.js"></script>
 <script>
     const contactButton = document.getElementById("contactButton");
@@ -907,22 +688,18 @@
     const contactForm = document.getElementById("contactForm");
     const contactSubmit = document.getElementById("contactSubmit");
     const contactSuccess = document.getElementById("contactSuccess");
-
     function openContact() {
         contactOverlay.classList.add("open");
         contactOverlay.setAttribute("aria-hidden", "false");
         document.body.style.overflow = "hidden";
-
         setTimeout(function () {
             document.getElementById("contactName").focus();
         }, 250);
     }
-
     function closeContact() {
         contactOverlay.classList.remove("open");
         contactOverlay.setAttribute("aria-hidden", "true");
         document.body.style.overflow = "";
-
         setTimeout(function () {
             contactForm.reset();
             contactForm.classList.remove("hidden");
@@ -931,52 +708,40 @@
             contactSubmit.textContent = "Send Message";
         }, 250);
     }
-
     contactButton.addEventListener("click", openContact);
     contactClose.addEventListener("click", closeContact);
-
     contactOverlay.addEventListener("click", function (event) {
         if (event.target === contactOverlay) {
             closeContact();
         }
     });
-
     document.addEventListener("keydown", function (event) {
         if (event.key === "Escape" && contactOverlay.classList.contains("open")) {
             closeContact();
         }
     });
-
     // =====================================================
     // GOOGLE APPS SCRIPT CONTACT ENDPOINT
     // Paste your deployed /exec URL between the quotes.
     // =====================================================
-
-   
-
     contactForm.addEventListener("submit", async function (event) {
         event.preventDefault();
-
         if (!contactForm.checkValidity()) {
             contactForm.reportValidity();
             return;
         }
-
         if (EE_CONFIG.contactApiUrl === "PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE") {
             alert("The contact form is not connected yet. Please add the Apps Script Web App URL.");
             return;
         }
-
         contactSubmit.disabled = true;
         contactSubmit.textContent = "Sending...";
-
         const formData = {
             name: document.getElementById("contactName").value.trim(),
             email: document.getElementById("contactEmail").value.trim(),
             company: document.getElementById("contactCompany").value.trim(),
             message: document.getElementById("contactMessage").value.trim()
         };
-
         try {
             const response = await fetch(EE_CONFIG.contactApiUrl, {
                 method: "POST",
@@ -985,16 +750,12 @@
                 },
                 body: JSON.stringify(formData)
             });
-
-            const result = await response.json();
-
+           const result = await response.json();
             if (!result.success) {
                 throw new Error(result.error || "Submission failed.");
             }
-
             contactForm.classList.add("hidden");
             contactSuccess.classList.add("show");
-
         } catch (error) {
             console.error("Contact form error:", error);
             contactSubmit.disabled = false;
@@ -1003,6 +764,5 @@
         }
     });
 </script>
-
 </body>
 </html>
